@@ -1,14 +1,16 @@
 import os
 import time
-import playsound
+import pygame
 import speech_recognition as sr
 from gtts import gTTS
 
 def speak(text):
-	tts = gTTS(text = text, lang="en")
-	filename = "voice.mp3"
-	tts.save(filename)
-	playsound.playsound(filename)
+	pygame.init()
+	pygame.mixer.music.load("voice.mp3")
+	pygame.mixer.music.play()
+	while pygame.mixer.music.get_busy():
+		continue
+	pygame.quit()
 
 def get_audio():
 	r = sr.Recognizer()
@@ -33,3 +35,4 @@ text = get_audio()
 
 if "hello" in text:
 	speak("hello, how are you?")
+
